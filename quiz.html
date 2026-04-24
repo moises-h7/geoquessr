@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GeoQuessr — Quiz em andamento. Adivinhe o país pela bandeira.">
+    <title>GeoQuessr — Jogando</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/globe.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-quiz">
+
+    <!-- ===== Tela do Quiz ===== -->
+    <section id="quiz-screen" class="screen active" aria-label="Quiz em andamento">
+
+        <header class="quiz-header" role="banner">
+            <div class="quiz-info">
+                <span id="question-counter" class="question-counter" aria-live="polite">1 / 10</span>
+                <span id="lives-display" class="lives-display" aria-label="Vidas restantes" aria-live="polite">❤️ ❤️ ❤️</span>
+                <span id="score-display" class="score-display" aria-live="polite">⭐ 0</span>
+            </div>
+            <div class="progress-bar-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+        </header>
+
+        <main class="quiz-body">
+            <article class="question-card glass-card" aria-label="Pergunta atual">
+                <p class="question-label">De qual país é esta bandeira?</p>
+                <div class="flag-container">
+                    <div id="flag-skeleton" class="flag-skeleton" aria-hidden="true"></div>
+                    <img id="flag-image" class="flag-image" src="" alt="Bandeira do país a ser identificado">
+                </div>
+                <div class="hint-area">
+                    <button id="btn-hint" class="btn-hint" aria-label="Usar uma dica">💡 Usar dica</button>
+                    <span id="hint-text" class="hint-text" aria-live="polite"></span>
+                </div>
+            </article>
+
+            <div id="options-grid" class="options-grid" role="group" aria-label="Opções de resposta">
+                <!-- JS injeta as opções -->
+            </div>
+
+            <div class="quiz-actions">
+                <button id="btn-quit" class="btn-quit" aria-label="Interromper e sair do quiz">
+                    ✕ Sair do Quiz
+                </button>
+            </div>
+        </main>
+    </section>
+
+    <!-- ===== Modal de Saída ===== -->
+    <div id="modal-quit" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-quit-title">
+        <div class="modal-card">
+            <span class="modal-icon" aria-hidden="true">🚪</span>
+            <h2 id="modal-quit-title" class="modal-title">Sair do Quiz?</h2>
+            <p class="modal-subtitle">Seu progresso será perdido.<br>Deseja mesmo voltar ao início?</p>
+            <div class="modal-actions">
+                <button id="btn-confirm-quit" class="btn-primary btn-primary--danger">
+                    <span class="btn-text">Voltar ao Início</span>
+                </button>
+                <button id="btn-cancel-quit" class="btn-ghost">
+                    Continuar Jogando
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Tela de Resultado ===== -->
+    <section id="result-screen" class="screen" aria-label="Resultado do quiz">
+        <main>
+            <div class="result-card glass-card">
+                <div id="result-emoji" class="result-emoji" aria-hidden="true">🏆</div>
+                <h2 id="result-title" class="result-title">Parabéns!</h2>
+                <p id="result-subtitle" class="result-subtitle">Você acertou 0 de 10!</p>
+
+                <div class="result-score-ring" aria-label="Pontuação em percentual">
+                    <svg class="score-ring-svg" viewBox="0 0 120 120" aria-hidden="true">
+                        <circle class="ring-bg" cx="60" cy="60" r="52"/>
+                        <circle id="ring-fill" class="ring-fill" cx="60" cy="60" r="52"/>
+                    </svg>
+                    <span id="ring-label" class="ring-label" aria-live="polite">0%</span>
+                </div>
+
+                <div class="result-stats" role="list" aria-label="Estatísticas da partida">
+                    <div class="result-stat" role="listitem">
+                        <span class="result-stat-icon" aria-hidden="true">✅</span>
+                        <span id="stat-correct" class="result-stat-value">0</span>
+                        <span class="result-stat-label">Acertos</span>
+                    </div>
+                    <div class="result-stat" role="listitem">
+                        <span class="result-stat-icon" aria-hidden="true">❌</span>
+                        <span id="stat-wrong" class="result-stat-value">0</span>
+                        <span class="result-stat-label">Erros</span>
+                    </div>
+                    <div class="result-stat" role="listitem">
+                        <span class="result-stat-icon" aria-hidden="true">⏱</span>
+                        <span id="stat-time" class="result-stat-value">0s</span>
+                        <span class="result-stat-label">Tempo</span>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button id="btn-restart" class="btn-primary">
+                        <span class="btn-text">Jogar Novamente</span>
+                        <span class="btn-icon" aria-hidden="true">↺</span>
+                    </button>
+                    <a id="btn-home" href="index.html" class="btn-ghost">
+                        ← Tela Inicial
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <footer class="quiz-footer">
+            <p>GeoQuessr · via RestCountries API</p>
+        </footer>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
